@@ -1,15 +1,15 @@
-# Elysia with Bun runtime
+# portfolio-api
 
-## Getting Started
-To get started with this template, simply paste this command into your terminal:
-```bash
-bun create elysia ./elysia-example
-```
+A tiny example that implements token based authentication in [bun](https://bun.sh/) and [elysia](https://elysiajs.com/).
 
-## Development
-To start the development server run:
-```bash
-bun run dev
-```
+## Try locally
 
-Open http://localhost:3000/ with your browser to see the result.
+- Install [bun](https://bun.sh/).
+- Clone this repository.
+- Run `bun i` to install the necessary packages.
+- Run `bunx prisma generate` to initialize the sqlite database from the prisma [schema file](prisma/schema.prisma).
+- Set environment variables
+  - `DATABASE_URL`
+  - `JWT_ACCESS_SECRET`
+  - `JWT_REFRESH_SECRET`
+- Run `bun run dev` to start the application.
