@@ -1,6 +1,7 @@
 import { Elysia } from "elysia";
 import { auth } from "./routes/auth/plugin";
 import { categories } from "./routes/categories/plugin";
+import { skills } from "./routes/skills/plugin";
 
 const app = new Elysia({
   prefix: "/api",
@@ -13,6 +14,7 @@ const app = new Elysia({
   })
   .use(auth)
   .use(categories)
+  .use(skills)
 
   .listen(8080);
 

@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
 import { newCategory } from "./newCategory";
-import { getCategories } from "./getCategory";
+import { getCategories } from "./getCategories";
 import { deleteCategory } from "./deleteCategory";
 import { editCategory } from "./editCategory";
 

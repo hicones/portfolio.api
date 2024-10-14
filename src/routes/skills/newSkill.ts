@@ -1,32 +1,33 @@
 import { Elysia } from "elysia";
-import { categoryModel } from "./setup";
+import { skillModel } from "./setup";
 import { isAuthenticated } from "../../middlewares/isAuthenticated";
 import { prisma } from "../../prisma/prisma";
 import { formatResponse } from "../../lib/utils";
 
-export const newCategory = new Elysia()
-  .use(categoryModel)
+export const newSkill = new Elysia()
+  .use(skillModel)
   .use(isAuthenticated)
   .post(
     "/",
     async function handler({ body, set }) {
-      const { name } = body;
+      const { name, progress } = body;
       if (name.length === 0) {
         set.status = 400;
         return {
           message: "Content cannot be empty.",
         };
       }
-      const category = await prisma.category.create({
+      const skill = await prisma.skill.create({
         data: {
           name,
+          progress,
         },
       });
 
       set.status = 201;
-      return formatResponse(category, 201, "Category created successfully");
+      return formatResponse(skill, 201, "Skill created successfully");
     },
     {
-      body: "categoryModel",
+      body: "skillModel",
     }
   );

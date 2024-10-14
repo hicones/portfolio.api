@@ -1,27 +1,27 @@
 import { Elysia } from "elysia";
-import { categoryModel } from "./setup";
+import { skillModel } from "./setup";
 import { isAuthenticated } from "../../middlewares/isAuthenticated";
 import { prisma } from "../../prisma/prisma";
 import { formatResponse } from "../../lib/utils";
 
-export const editCategory = new Elysia()
-  .use(categoryModel)
+export const editSkill = new Elysia()
+  .use(skillModel)
   .use(isAuthenticated)
   .put(
     "/:id",
     async function handler({ params, body, set }) {
       const { id } = params;
-      const { name } = body;
-      const category = await prisma.category.findUnique({
+      const { name, progress } = body;
+      const skill = await prisma.skill.findUnique({
         where: {
           id: Number(id),
         },
       });
 
-      if (!category) {
+      if (!skill) {
         set.status = 404;
         return {
-          message: "Category not found.",
+          message: "Skill not found.",
         };
       }
 
@@ -32,23 +32,20 @@ export const editCategory = new Elysia()
         };
       }
 
-      const updatedCategory = await prisma.category.update({
+      const updatedSkill = await prisma.skill.update({
         where: {
           id: Number(id),
         },
         data: {
           name,
+          progress,
         },
       });
 
       set.status = 201;
-      return formatResponse(
-        updatedCategory,
-        201,
-        "Category updated successfully"
-      );
+      return formatResponse(updatedSkill, 201, "Skill updated successfully");
     },
     {
-      body: "categoryModel",
+      body: "skillModel",
     }
   );
